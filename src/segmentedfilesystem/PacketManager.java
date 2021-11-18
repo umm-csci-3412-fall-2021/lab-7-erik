@@ -1,6 +1,7 @@
 package segmentedfilesystem;
 
 import java.net.DatagramPacket;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -10,8 +11,11 @@ public class PacketManager {
     // Each ArrayList of DataPackets represents one file
     private Map<Integer, ReceivedFile> packetMap;
 
+    private ArrayList<Integer> fileIDList;
+
     public PacketManager() {
         this.packetMap = new TreeMap<>();
+        fileIDList = new ArrayList<>();
     }
 
     /**
@@ -64,6 +68,9 @@ public class PacketManager {
             // Add the list to the map
             packetMap.put(fileID, correspFile);
 
+            // Add the ID to our list of IDs
+            fileIDList.add(fileID);
+
         // Otherwise...
         } else {
 
@@ -92,6 +99,9 @@ public class PacketManager {
             // Add the list to the map
             packetMap.put(fileID, correspFile);
 
+            // Add the ID to our list of IDs
+            fileIDList.add(fileID);
+
         // Otherwise...
         } else {
 
@@ -106,8 +116,11 @@ public class PacketManager {
         }
     }
 
-    public ReceivedFile getFilePackets(int fileID) {
+    public ReceivedFile getFile(int fileID) {
         return packetMap.get(fileID);
     }
 
+    public ArrayList<Integer> getFileIDs() {
+        return fileIDList;
+    }
 }

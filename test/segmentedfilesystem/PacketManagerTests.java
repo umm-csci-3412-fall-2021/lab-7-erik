@@ -98,7 +98,7 @@ public class PacketManagerTests {
         PacketManager testManager = new PacketManager();
 
         testManager.handlePacket(testPacket);
-        ReceivedFile filePacket = testManager.getFilePackets(expectedFileID1);
+        ReceivedFile filePacket = testManager.getFile(expectedFileID1);
 
         assertEquals(false, testManager.allPacketsReceived());
         assertEquals(-1, filePacket.getExpectedNumPackets());
@@ -110,7 +110,7 @@ public class PacketManagerTests {
         populateHeaderPacket(true);
 
         testManager.handlePacket(testPacket);
-        ReceivedFile newFile = testManager.getFilePackets(expectedFileID2);
+        ReceivedFile newFile = testManager.getFile(expectedFileID2);
 
         assertEquals(false, testManager.allPacketsReceived());
         assertEquals(-1, newFile.getExpectedNumPackets());
@@ -126,7 +126,7 @@ public class PacketManagerTests {
         PacketManager testManager = new PacketManager();
 
         testManager.handlePacket(testPacket);
-        ReceivedFile filePacket = testManager.getFilePackets(expectedFileID1);
+        ReceivedFile filePacket = testManager.getFile(expectedFileID1);
 
         assertEquals(false, testManager.allPacketsReceived());
         assertEquals(expectedPacketNum + 1, filePacket.getExpectedNumPackets());
@@ -136,7 +136,7 @@ public class PacketManagerTests {
         populateDataPacket(false, false, true);
 
         testManager.handlePacket(testPacket);
-        ReceivedFile newFile = testManager.getFilePackets(expectedFileID2);
+        ReceivedFile newFile = testManager.getFile(expectedFileID2);
 
         assertEquals(false, testManager.allPacketsReceived());
         assertEquals(-1, newFile.getExpectedNumPackets());
@@ -146,7 +146,7 @@ public class PacketManagerTests {
         populateDataPacket(false, true, false);
 
         testManager.handlePacket(testPacket);
-        filePacket = testManager.getFilePackets(expectedFileID1);
+        filePacket = testManager.getFile(expectedFileID1);
 
         assertEquals(false, testManager.allPacketsReceived());
         assertEquals(expectedPacketNum + 1, filePacket.getExpectedNumPackets());
@@ -164,7 +164,7 @@ public class PacketManagerTests {
         populateDataPacket(true, true, false);
 
         testManager.handlePacket(testPacket);
-        ReceivedFile filePacket = testManager.getFilePackets(expectedFileID1);
+        ReceivedFile filePacket = testManager.getFile(expectedFileID1);
 
         assertEquals(true, testManager.allPacketsReceived());
         assertEquals(1, filePacket.getExpectedNumPackets());
@@ -176,7 +176,7 @@ public class PacketManagerTests {
         populateDataPacket(true, true, true);
 
         testManager.handlePacket(testPacket);
-        ReceivedFile newFile = testManager.getFilePackets(expectedFileID2);
+        ReceivedFile newFile = testManager.getFile(expectedFileID2);
 
         assertEquals(false, testManager.allPacketsReceived());
         assertEquals(1, newFile.getExpectedNumPackets());
@@ -185,7 +185,7 @@ public class PacketManagerTests {
         populateHeaderPacket(true);
 
         testManager.handlePacket(testPacket);
-        newFile = testManager.getFilePackets(expectedFileID2);
+        newFile = testManager.getFile(expectedFileID2);
 
         assertEquals(true, testManager.allPacketsReceived());
         assertEquals(1, newFile.getExpectedNumPackets());
