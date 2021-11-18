@@ -7,17 +7,18 @@ import java.net.DatagramPacket;
 import org.junit.Test;
 
 /**
- * This is just a stub test file. You should rename it to
- * something meaningful in your context and populate it with
- * useful tests.
+ * Tests for DataPacket.java
  */
 public class DataPacketTests {
 
     DatagramPacket testPacket;
     byte[] testData1 = new byte[6];
 
-    String status = "00000111";
-    int expectedStatus = 7;
+    String lastStatus = "00000111";
+    int expectedLastStatus = 7;
+
+    String notLastStatus = "00000101";
+    int expectedNotLastStatus = 5;
 
     String fileID = "00001010";
     int expectedFileID = 10;
@@ -30,8 +31,14 @@ public class DataPacketTests {
     byte data1 = 5;
     byte data2 = 9;
 
-    private void populateDataPacket() {
-        testData1[0] = Byte.parseByte(status, 2);
+    private void populateDataPacket(boolean isLast) {
+
+        if(isLast) {
+            testData1[0] = Byte.parseByte(lastStatus, 2);
+        } else {
+            testData1[0] = Byte.parseByte(notLastStatus, 2);
+        }
+
         testData1[1] = Byte.parseByte(fileID, 2);
         testData1[2] = Byte.parseByte(firstPacketNum, 2);
         testData1[3] = Byte.parseByte(secondPacketNum, 2);
@@ -43,14 +50,37 @@ public class DataPacketTests {
 
     @Test
     public void testDataPacketConstruction() {
-        populateDataPacket();
+        populateDataPacket(true);
         
         DataPacket createdPacket = new DataPacket(testPacket);
 
-        assertEquals(expectedStatus, createdPacket.getStatus());
+        assertEquals(expectedLastStatus, createdPacket.getStatus());
         assertEquals(expectedFileID, createdPacket.getFileID());
         assertEquals(expectedPacketNum, createdPacket.getPacketNum());
+        assertEquals(data1, createdPacket.getData()[0]);
+        assertEquals(data2, createdPacket.getData()[1]);
+    }
+
+    @Test
+    public void testStatusCheckForLast() {
+        populateDataPacket(true);
+
+        DataPacket createdPacket = new DataPacket(testPacket);
+
+        
+        assertEquals(expectedLastStatus, createdPacket.getStatus());
         assertEquals(true, createdPacket.isLast());
+    }
+
+    @Test
+    public void testStatusCheckNotLast() {
+        populateDataPacket(false);
+
+        DataPacket createdPacket = new DataPacket(testPacket);
+
+        
+        assertEquals(expectedNotLastStatus, createdPacket.getStatus());
+        assertEquals(false, createdPacket.isLast());
     }
 
 }

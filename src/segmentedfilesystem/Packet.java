@@ -1,7 +1,5 @@
 package segmentedfilesystem;
 
-import java.net.DatagramPacket;
-
 public abstract class Packet {
 
     int status;
@@ -24,6 +22,14 @@ public abstract class Packet {
      */
     public int getStatus() {
         return this.status;
+    }
+
+    /**
+     * Get the data of the packet
+     * @return the data as a byte[]
+     */
+    public byte[] getData() {
+        return this.data;
     }
 
 }
