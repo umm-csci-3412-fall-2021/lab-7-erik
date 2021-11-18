@@ -13,6 +13,6 @@ public class HeaderPacket extends Packet {
 
         this.status = allPacketData[0];
         this.fileID = allPacketData[1];
-        this.data = Arrays.copyOfRange(allPacketData, 2, dataLength);
+        this.data = Arrays.copyOfRange(allPacketData, 2, packetLength);
     }
 }
