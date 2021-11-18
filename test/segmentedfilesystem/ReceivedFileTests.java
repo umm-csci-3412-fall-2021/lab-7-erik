@@ -3,6 +3,7 @@ package segmentedfilesystem;
 import static org.junit.Assert.*;
 
 import java.net.DatagramPacket;
+import java.util.ArrayList;
 
 import org.junit.Test;
 
@@ -128,6 +129,12 @@ public class ReceivedFileTests {
         assertEquals(false, createdFile.hasAllPackets());
         assertEquals(2, createdFile.getNumReceivedPackets());
         assertEquals(expectedPacketNum + 1, createdFile.getExpectedNumPackets());
+
+        // Checks that the data was sorted
+        ArrayList<DataPacket> dataFromFile = createdFile.getDataInOrder();
+
+        assertEquals(expectedOnlyPacketNum, dataFromFile.get(0).getPacketNum());
+        assertEquals(expectedPacketNum, dataFromFile.get(1).getPacketNum());
     }
 
     @Test

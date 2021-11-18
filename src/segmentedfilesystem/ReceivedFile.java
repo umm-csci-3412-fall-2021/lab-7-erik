@@ -1,6 +1,7 @@
 package segmentedfilesystem;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class ReceivedFile {
     
@@ -48,5 +49,40 @@ public class ReceivedFile {
 
     public HeaderPacket getHeader() {
         return this.header;
+    }
+
+    /**
+     * Get the list of DataPackets sorted by packet number
+     * @return
+     */
+    public ArrayList<DataPacket> getDataInOrder() {
+        DataPacketComparer comparator = new DataPacketComparer();
+        this.dataPackets.sort(comparator);
+        return this.dataPackets;
+    }
+
+    /**
+     * Comparator used to sort DataPackets by packet number
+     */
+    private class DataPacketComparer implements Comparator<DataPacket> {
+
+        /**
+         * Compares the two packets by Packet Number
+         */
+        @Override
+        public int compare(DataPacket o1, DataPacket o2) {
+            
+            int firstPacketNum = o1.getPacketNum();
+            int secondPacketNum = o2.getPacketNum();
+
+            if (firstPacketNum < secondPacketNum) {
+                return -1;
+            } else if (firstPacketNum > secondPacketNum) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+
     }
 }
