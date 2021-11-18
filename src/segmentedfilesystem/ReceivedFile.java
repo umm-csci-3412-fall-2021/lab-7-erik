@@ -10,13 +10,13 @@ public class ReceivedFile {
     private int expectedNumPackets = -1;
 
     public ReceivedFile(HeaderPacket headerPacket) {
-        this.header = headerPacket;
         this.dataPackets = new ArrayList<>();
+        this.addHeader(headerPacket);
     }
 
     public ReceivedFile(DataPacket dataPacket) {
         this.dataPackets = new ArrayList<>();
-        this.dataPackets.add(dataPacket);
+        this.addDataPacket(dataPacket);
     }
 
     public void addHeader(HeaderPacket headerPacket) {
@@ -42,7 +42,7 @@ public class ReceivedFile {
         if (this.expectedNumPackets == -1) {
             return false;
         } else {
-            return this.expectedNumPackets == getNumReceivedPackets();
+            return (this.expectedNumPackets == getNumReceivedPackets()) && this.header != null;
         }
     }
 
