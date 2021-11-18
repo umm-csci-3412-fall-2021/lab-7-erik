@@ -38,7 +38,7 @@ public class ReceivedFileTests {
     byte data2 = 9;
 
     /**
-     * Populates a DataPacket with the above data
+     * Populates a DatagramPacket with the appropriate data to be a DataPacket
      * @param isLast whether the packet is the last one of the file
      * @param onlyPacket whether the packet number should be 0 or an arb number
      */
@@ -67,7 +67,7 @@ public class ReceivedFileTests {
     }
 
     /**
-     * Populates a HeaderPacket with the above data
+     * Populates a DatagramPacket with the appropriate data for a HeaderPacket
      */
     private void populateHeaderPacket() {
 
